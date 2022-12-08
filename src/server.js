@@ -17,13 +17,11 @@ app.use(cors());
 
 
 
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
-
-app.use('/v1',routes);
+app.use(routes);
 
 quickStartDB.ckeckType()
 quickStartDB.ckeckUser()
 
-app.listen(process.env.PORT || 5001, () =>{
+app.listen(process.env.PORT || 5000, () =>{
     console.log("Rodando http na porta 5001 \\O/.");
 })

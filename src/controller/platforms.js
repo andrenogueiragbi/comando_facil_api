@@ -1,11 +1,45 @@
-const typesCommands = require('../modal/TypesCommand');
+const Platforms = require('../modal/Platforms');
 
 module.exports = {
+    async one(req, res) {
+
+        const { Idplatforms } = req.params;
+
+        console.log(Idplatforms)
+
+        try {
+
+            const platform = await Platforms.findOne({ where: { id: Idplatforms } })
+
+      
+
+            if (!platform) {
+                return res.status(404).send({
+                    erro: true,
+                    message: 'Types commands list is empty'
+                });
+            }
+
+            return res.status(200).send({
+                erro: false,
+                types: platform
+            });
+
+        } catch (e) {
+
+            return res.status(500).send({
+                erro: true,
+                message: 'The server failed'
+            });
+        }
+
+    },
+
     async index(req, res) {
 
         try {
 
-            const types = await typesCommands.findAll();
+            const types = await Platforms.findAll();
 
             if (types.length == 0) {
                 return res.status(404).send({
@@ -32,20 +66,20 @@ module.exports = {
     async store(req, res) {
 
 
-        const { name } = req.body;
+        const { name, avatar } = req.body;
 
         if (name) {
 
             try {
 
-                if (await typesCommands.findOne({ where: { name: name } })) {
+                if (await Platforms.findOne({ where: { name: name } })) {
                     return res.status(400).send({
                         erro: true,
                         message: 'Types commands already exists',
                     });
                 }
 
-                const typesCommandsNew = await typesCommands.create({ name });
+                const typesCommandsNew = await Platforms.create({ name,avatar:avatar?avatar:null });
 
                 return res.status(200).send({
                     erro: false,
@@ -73,13 +107,13 @@ module.exports = {
 
     async update(req, res) {
 
-        const { Idtype } = req.params;
-        const { name } = req.body;
+        const { Idplatforms } = req.params;
+        const { name,avatar } = req.body;
 
-        if (Idtype && name) {
+        if (Idplatforms && name) {
 
             try {
-                const typeExist = await typesCommands.findByPk(Idtype);
+                const typeExist = await Platforms.findByPk(Idplatforms);
 
                 if (!typeExist) {
                     return res.status(404).send({
@@ -89,7 +123,7 @@ module.exports = {
 
                 }
 
-                if (await typesCommands.findOne({ where: { name: name } })) {
+                if (await Platforms.findOne({ where: { name: name } })) {
                     return res.status(400).send({
                         erro: true,
                         message: 'Types commands already exists',
@@ -97,9 +131,9 @@ module.exports = {
                     });
                 }
 
-                await typesCommands.update({ name: name }, {
+                await Platforms.update({ name: name, avatar:avatar? avatar: typeExist.avatar  }, {
                     where: {
-                        id: Idtype,
+                        id: Idplatforms,
                     }
                 });
 
@@ -127,23 +161,23 @@ module.exports = {
     },
 
     async delete(req, res) {
-        const { Idtype } = req.params;
+        const { Idplatforms } = req.params;
 
 
-        if (Idtype) {
+        if (Idplatforms) {
 
             try {
 
-                if (!await typesCommands.findOne({ where: { id: Idtype } })) {
+                if (!await Platforms.findOne({ where: { id: Idplatforms } })) {
                     return res.status(400).send({
                         erro: true,
                         message: 'Types commands does not exist to delete',
                     });
                 }
 
-                await typesCommands.destroy({
+                await Platforms.destroy({
                     where: {
-                        id: Idtype
+                        id: Idplatforms
                     }
                 });
 

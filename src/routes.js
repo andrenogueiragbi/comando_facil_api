@@ -1,7 +1,7 @@
 const express = require('express');
 const commands = require('./controller/CommandsController')
 const commandsAdvanced = require('./controller/CommandsAdvancedController')
-const typeCommand = require('./controller/TypeCommandsController')
+const platforms = require('./controller/platforms')
 const UserController = require('./controller/UserController');
 const UserPublicController = require('./controller/UserPublicController');
 const CoupomController = require('./controller/ticketController');
@@ -21,10 +21,12 @@ routes.get('/commands/search/:type',authMiddleware,commandsAdvanced.searchAllTyp
 
 
 /*ROTA DE TIPO DA API*/
-routes.get('/type', typeCommand.index)
-routes.post('/type',isBody, typeCommand.store)
-routes.put('/type/:Idtype',isBody, typeCommand.update)
-routes.delete('/type/:Idtype', typeCommand.delete)
+routes.get('/platform/:Idplatforms', platforms.one)
+
+routes.get('/platforms', platforms.index)
+routes.post('/platforms',isBody, platforms.store)
+routes.put('/platforms/:Idplatforms',isBody, platforms.update)
+routes.delete('/platforms/:Idplatforms', platforms.delete)
 
 
 /*ROTA DE TIKET DA API*/

@@ -9,9 +9,13 @@ module.exports = {
         autoIncrement: true,
         allowNull: false,
       },
-      title: {
+      title_id: {
         type:Sequelize.INTEGER,
         allowNull: false,
+        references: {
+          model: "titles",
+          key: "id",
+        }
       },
 
       description: {
@@ -24,7 +28,7 @@ module.exports = {
       },
       tags: {
         type:Sequelize.TEXT,
-        allowNull: false,
+       
       },
 
       creator: {

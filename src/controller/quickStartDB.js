@@ -1,17 +1,59 @@
-const TypesCommands = require('../modal/TypesCommand');
+const Platforms = require('../modal/Platforms');
 const User = require('../modal/User');
 
 
-var typeStart = [
-    "Linux",
-    "GitHub",
-    "Mysql",
-    "Windows",
-    "Docker",
-    "Rede",
-    "Linguagens",
-    "Outros"
+const platforms = [
+
+    {
+        name: 'Docker',
+        avatar: 'https://cdn-icons-png.flaticon.com/512/5969/5969059.png',
+        description: "description"
+    },
+    {
+        name: 'Python',
+        avatar: 'https://cdn-icons-png.flaticon.com/512/1822/1822899.png',
+        description: "description"
+    },
+    {
+        name: 'Linux',
+        avatar: 'https://cdn-icons-png.flaticon.com/512/6124/6124995.png',
+        description: "description"
+    },
+    {
+        name: 'Windows',
+        avatar: 'https://cdn-icons-png.flaticon.com/512/732/732225.png',
+        description: "description"
+    },
+    {
+        name: 'GitHub', avatar: 'https://cdn-icons-png.flaticon.com/512/4926/4926624.png',
+        description: "description"
+    },
+    {
+        name: 'Mysql',
+        avatar: 'https://cdn-icons-png.flaticon.com/512/5968/5968313.png',
+        description: "description"
+    },
+    {
+        name: 'PHP',
+        avatar: 'https://cdn-icons-png.flaticon.com/512/5968/5968332.png',
+        description: "description"
+    },
+    {
+        name: 'Java Script',
+        avatar: 'https://cdn-icons-png.flaticon.com/512/721/721671.png',
+        description: "description"
+    },
+    {
+        name: 'Outros',
+        avatar: 'https://cdn-icons-png.flaticon.com/512/685/685389.png',
+        description: "description"
+    },
+
+
+
 ]
+
+
 
 
 module.exports = {
@@ -19,11 +61,13 @@ module.exports = {
 
     async ckeckType() {
 
-        if ((await TypesCommands.findAll()).length == 0) {
 
-            for (var name of typeStart) {
-                console.log(`Insert data type ${name}`)
-                await TypesCommands.create({ name })
+
+        if ((await Platforms.findAll()).length == 0) {
+
+            for (var { name, avatar,description } of platforms) {
+                console.log(`${name}`)
+                await Platforms.create({ name, avatar ,description})
 
             }
 
