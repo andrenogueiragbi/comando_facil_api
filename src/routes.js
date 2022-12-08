@@ -1,38 +1,52 @@
 const express = require('express');
-const commands = require('./controller/CommandsController')
-const commandsAdvanced = require('./controller/CommandsAdvancedController')
-const platforms = require('./controller/platforms')
 const UserController = require('./controller/UserController');
-const UserPublicController = require('./controller/UserPublicController');
-const CoupomController = require('./controller/ticketController');
 const authMiddleware = require('./middlewares/auth');
 const isBody = require('./controller/checkBody')
 
+const commands = require('./controller/command')
+const platforms = require('./controller/platforms')
+const titles = require('./controller/titles')
+
+
 const routes = express.Router();
 
-/*ROTA DE COMANDO DA API*/
-routes.get('/commands', commands.index)
-routes.post('/commands',authMiddleware,isBody, commands.store)
-routes.put('/commands/:IdCommand',authMiddleware,isBody, commands.update)
-routes.delete('/commands/:IdCommand',authMiddleware,commands.delete)
 
-/*BUSCA AVANCADAS DE COMANDOS*/
-routes.get('/commands/search/:type',authMiddleware,commandsAdvanced.searchAllType)
-
-
-/*ROTA DE TIPO DA API*/
+/*ROTA DE TIPO PLATAFORMA DA API*/
 routes.get('/platform/:Idplatforms', platforms.one)
-
 routes.get('/platforms', platforms.index)
 routes.post('/platforms',isBody, platforms.store)
 routes.put('/platforms/:Idplatforms',isBody, platforms.update)
 routes.delete('/platforms/:Idplatforms', platforms.delete)
 
 
-/*ROTA DE TIKET DA API*/
-routes.get('/ticket',authMiddleware, CoupomController.index)
-routes.post('/ticket',isBody, CoupomController.store)
-routes.delete('/ticket/:Idticket', CoupomController.delete)
+/*ROTA DE TITULO DE COMANDO DE PLATAFORMA*/
+routes.get('/title/:Idtitle', titles.one)
+routes.get('/title/platform/:Idplatform', titles.platform)
+routes.post('/titles',isBody, titles.store)
+routes.get('/titles', titles.index)
+
+/*ROTA DE COMANDO DA API*/
+routes.get('/commands', commands.index)
+routes.get('/commands/:Idcommand', commands.one)
+routes.get('/commands/title/:Idtitle', commands.title)
+
+routes.post('/commands',isBody, commands.store)
+
+
+
+///////////////////////////////////////////////////////////
+
+
+
+
+
+
+
+routes.put('/commands/:IdCommand',authMiddleware,isBody, commands.update)
+routes.delete('/commands/:IdCommand',authMiddleware,commands.delete)
+
+
+
 
 /*ROTA DE LOGIN DA API*/
 routes.post('/users/login', UserController.login);
@@ -44,8 +58,6 @@ routes.put('/users/:user_id',isBody, authMiddleware, UserController.update);
 routes.delete('/users/:user_id',authMiddleware, UserController.delete);
 
 
-/*ROTA CRIAR LOGIN COM CUPON*/
-routes.post('/users/ticket/',isBody,UserPublicController.store);
 
 
 

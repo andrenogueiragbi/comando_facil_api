@@ -1,28 +1,59 @@
-const Platforms = require('../modal/Platforms');
+const Titles = require('../modal/Titles');
 
 module.exports = {
     async one(req, res) {
 
-        const { Idplatforms } = req.params;
+        const { Idtitle } = req.params;
 
-        console.log(Idplatforms)
+        console.log(Idtitle)
 
         try {
 
-            const platform = await Platforms.findOne({ where: { id: Idplatforms } })
+            const title = await Titles.findOne({ where: { id: Idtitle } })
 
       
 
-            if (!platform) {
+            if (!title) {
                 return res.status(404).send({
                     erro: true,
-                    message: 'Types commands list is empty'
+                    message: 'Type title list is empty'
                 });
             }
 
             return res.status(200).send({
                 erro: false,
-                data: platform
+                data: title
+            });
+
+        } catch (e) {
+
+            return res.status(500).send({
+                erro: true,
+                message: 'The server failed'
+            });
+        }
+
+    },
+    async platform(req, res) {
+
+        const { Idplatform:id } = req.params;
+
+
+        try {
+
+            const title = await Titles.findAll({ where: { id_platforms: id } })
+
+      
+            if (!title) {
+                return res.status(404).send({
+                    erro: true,
+                    message: 'Type title list is empty'
+                });
+            }
+
+            return res.status(200).send({
+                erro: false,
+                data: title
             });
 
         } catch (e) {
@@ -35,22 +66,23 @@ module.exports = {
 
     },
 
+    //* refazer *//
     async index(req, res) {
 
         try {
 
-            const types = await Platforms.findAll();
+            const title = await Titles.findAll();
 
-            if (types.length == 0) {
+            if (title.length == 0) {
                 return res.status(404).send({
                     erro: true,
-                    message: 'Types commands list is empty'
+                    message: 'Types title list is empty'
                 });
             }
 
             return res.status(200).send({
                 erro: false,
-                data:types
+                title
             });
 
         } catch (e) {
@@ -65,26 +97,30 @@ module.exports = {
 
     async store(req, res) {
 
+        const { title, description,avatar,id_platforms } = req.body;
 
-        const { name, avatar } = req.body;
+        if (title && description && id_platforms) {
 
-        if (name) {
+            console.log(await Titles.findOne({ where: {  title } }))
+
+            
+  
 
             try {
 
-                if (await Platforms.findOne({ where: { name: name } })) {
+                if (await Titles.findOne({ where: {  title } })) {
                     return res.status(400).send({
                         erro: true,
-                        message: 'Types commands already exists',
+                        message: 'Type title already exists',
                     });
                 }
 
-                const typesCommandsNew = await Platforms.create({ name,avatar:avatar?avatar:null });
+                const titleNew = await Titles.create({ title,description,avatar:avatar?avatar:null,id_platforms });
 
                 return res.status(200).send({
                     erro: false,
                     message: 'Types commands created success',
-                    data: typesCommandsNew
+                    data:titleNew
                 })
 
 
@@ -99,7 +135,7 @@ module.exports = {
 
             return res.status(400).send({
                 erro: true,
-                message: "name is requeried",
+                message: "title && description && id_platforms is requeried",
             })
 
         }

@@ -1,6 +1,39 @@
 const Commands = require('../modal/Commands');
 
 module.exports = {
+    async one(req, res) {
+
+        const { Idcommand:id } = req.params;
+
+        console.log(id)
+
+        try {
+
+            const command = await Commands.findOne({ where: { id } })
+
+      
+
+            if (!command) {
+                return res.status(404).send({
+                    erro: true,
+                    message: 'Type command list is empty'
+                });
+            }
+
+            return res.status(200).send({
+                erro: false,
+                types: command
+            });
+
+        } catch (e) {
+
+            return res.status(500).send({
+                erro: true,
+                message: 'The server failed'
+            });
+        }
+
+    },
     async index(req, res) {
 
         try {
@@ -28,39 +61,70 @@ module.exports = {
         }
 
     },
+    async title(req, res) {
 
+        const { Idtitle:title_id } = req.params;
+
+
+        try {
+
+            const command = await Commands.findAll({ where: { title_id } })
+
+      
+            if (!command) {
+                return res.status(404).send({
+                    erro: true,
+                    message: 'Type command list is empty'
+                });
+            }
+
+            return res.status(200).send({
+                erro: false,
+                data: command
+            });
+
+        } catch (e) {
+
+            return res.status(500).send({
+                erro: true,
+                message: 'The server failed'
+            });
+        }
+
+    },
     async store(req, res) {
 
 
         const { 
-            title,
+          
             description,
             commands,
             tags,
             creator,
-            type_id } = req.body;
+            title_id } = req.body;
 
-        if ( title && description && commands && tags && creator && type_id) {
+        if ( description && commands && tags && title_id) {
 
             try {
 
-                duplicidade = await Commands.findOne({ where: { commands: commands } })
+                const duplicidade = await Commands.findOne({ where: { commands: commands,title_id:title_id } })
 
 
-                if (duplicidade && duplicidade.dataValues.type_id === type_id) {
+                if (duplicidade) {
                     return res.status(400).send({
                         erro: true,
                         message: 'commands already exists',
+                        commands:duplicidade
 
                     });
                 }
 
-                const commandsNew = await Commands.create({ title, description, commands, tags, creator,type_id });
+                const commandsNew = await Commands.create({ description , commands , tags , title_id , creator });
 
                 return res.status(200).send({
                     erro: false,
                     message: 'commands created success',
-                    commandsNew
+                    commands:commandsNew
                 })
 
 
@@ -75,11 +139,16 @@ module.exports = {
 
             return res.status(400).send({
                 erro: true,
-                message: "type_id, title,description, commands, tags and creator is requeried",
+                message: "description && commands && tags && title_id is requeried",
             })
 
         }
     },
+
+
+
+    //refazer//
+
 
     async update(req, res) {
 

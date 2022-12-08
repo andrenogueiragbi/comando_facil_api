@@ -1,18 +1,19 @@
 const { Model, DataTypes } = require('sequelize');
 
 
-class Commands extends Model {
+class commands extends Model {
     static init(sequelize){
         super.init({
-            title: DataTypes.STRING,
-            description: DataTypes.STRING,
+            description: DataTypes.TEXT,
             commands: DataTypes.TEXT,
             tags: DataTypes.STRING,
             creator: DataTypes.STRING,   
-            type_id: DataTypes.INTEGER, 
+            title_id: DataTypes.INTEGER, 
         }, {sequelize})
     }
         
 
 }
-module.exports = Commands
+module.exports = commands
+
+//id	description	commands	tags	creator	title_id	created_at	updated_at
