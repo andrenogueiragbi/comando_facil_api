@@ -1,43 +1,32 @@
 const { Model, DataTypes } = require('sequelize');
+const Platforms = require('./Platforms')
 
-class titles extends Model {
-    static init(sequelize){
-        super.init({
-            title: DataTypes.STRING,
-            description: DataTypes.STRING,
-            avatar: DataTypes.STRING,
-            id_platforms: DataTypes.INTEGER,
-        }, {sequelize})
-    }
-    static associate(models) {
-        this.belongsTo(models.platforms);
-        
-        
-    }
+class Titles extends Model {
+	static init(sequelize) {
+		super.init({
+			title: DataTypes.STRING,
+			description: DataTypes.STRING,
+			avatar: DataTypes.STRING,
+			id_platforms: DataTypes.INTEGER,
+		}, {
+			sequelize,
+/* 			modelName: 'titles',
+			timestamps: true,
+ */
+
+		})
+/* 		this.associate = (models) => {
+			Titles.hasMany(models.Platforms, {
+				foreignKey: 'id'
+			});
+		}; */
+
+
+	}
 
 
 }
 
-module.exports = titles
+module.exports = Titles
 
 
-
-/* 
-
-'use strict';
-
-
-module.exports = (sequelize, DataTypes) => {
-    const Titles = sequelize.define('Titles', {
-        title: DataTypes.STRING,
-        description: DataTypes.STRING,
-        avatar: DataTypes.STRING,
-        id_platforms: DataTypes.INTEGER,
-    }, {});
-    Titles.associate = function(models) {
-        Titles.belongsTo(models.Company, {foreignKey:'id_platforms', sourceKey:'id'})
-    };
-    return Titles;
-  };
-
-//id	title	description	avatar	id_platforms	created_at	updated_at */

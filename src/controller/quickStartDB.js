@@ -1,4 +1,6 @@
 const Platforms = require('../modal/Platforms');
+const Commands = require('../modal/Commands');
+const Titles = require('../modal/Titles');
 const User = require('../modal/User');
 
 
@@ -17,7 +19,7 @@ const platforms = [
     {
         name: 'Linux',
         avatar: 'https://cdn-icons-png.flaticon.com/512/6124/6124995.png',
-        description: "description"
+        description: "Linux é um termo popularmente empregado para se referir a sistemas operativos ou sistemas operacionais que utilizam o Kernel Linux. O núcleo foi desenvolvido pelo programador finlandês Linus Torvalds, inspirado no sistema Minix."
     },
     {
         name: 'Windows',
@@ -67,7 +69,20 @@ module.exports = {
 
             for (var { name, avatar,description } of platforms) {
                 console.log(`${name}`)
-                await Platforms.create({ name, avatar ,description})
+                const id = await Platforms.create({ name, avatar ,description})
+               
+                if(name == "Linux"){
+                    await Titles.create({title:'tail',description:"usado para ler as ultimas linhas do arquivo",id_platforms:id.id})
+                    await Titles.create({title:'grep',description:"usado para filtra text",id_platforms:id.id})
+
+
+                }
+
+                if(name == "GitHub"){
+                    await Titles.create({title:'git clone',description:"usado clonar um reposiório",id_platforms:id.id})
+
+
+                }
 
             }
 

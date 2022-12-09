@@ -15,9 +15,10 @@ const connection = new Sequilize(dbConfig)
 
 User.init(connection);
 Commands.init(connection);
+Platforms.init(connection);
 Titles.init(connection);
 
-Platforms.init(connection);
+
 
 
 module.exports = connection

@@ -9,6 +9,7 @@ module.exports = {
 				autoIncrement: true,
 				allowNull: false,
 
+
 			},
 			name: {
 				type: Sequelize.STRING,
@@ -42,6 +43,6 @@ module.exports = {
 	},
 
 	async down(queryInterface, Sequelize) {
-		await queryInterface.dropTable('types_commands');
+		await queryInterface.dropTable('platforms');
 	}
 };

@@ -20,16 +20,19 @@ routes.delete('/platforms/:Idplatforms', platforms.delete)
 
 
 /*ROTA DE TITULO DE COMANDO DE PLATAFORMA*/
+routes.get('/titles', titles.index)
+
+/*TESTES */
 routes.get('/title/:Idtitle', titles.one)
+
 routes.get('/title/platform/:Idplatform', titles.platform)
 routes.post('/titles',isBody, titles.store)
-routes.get('/titles', titles.index)
+
 
 /*ROTA DE COMANDO DA API*/
 routes.get('/commands', commands.index)
 routes.get('/commands/:Idcommand', commands.one)
 routes.get('/commands/title/:Idtitle', commands.title)
-
 routes.post('/commands',isBody, commands.store)
 
 

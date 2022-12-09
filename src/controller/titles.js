@@ -1,5 +1,5 @@
 const Titles = require('../modal/Titles');
-
+const Platforms = require('../modal/Platforms');
 
 
 module.exports = {
@@ -11,13 +11,13 @@ module.exports = {
 
         try {
 
-            const title = await Titles.findOne({ 
-                where: { id: Idtitle },   
+            const title = await Titles.findOne({
+                where: { id: Idtitle },
 
-         })
-            
+            })
 
-      
+
+
 
             if (!title) {
                 return res.status(404).send({
@@ -43,14 +43,14 @@ module.exports = {
     },
     async platform(req, res) {
 
-        const { Idplatform:id } = req.params;
+        const { Idplatform: id } = req.params;
 
 
         try {
 
             const title = await Titles.findAll({ where: { id_platforms: id } })
 
-      
+
             if (!title) {
                 return res.status(404).send({
                     erro: true,
@@ -76,9 +76,26 @@ module.exports = {
     //* refazer *//
     async index(req, res) {
 
+        Titles.findAll({
+            include: [{
+                model: Platforms,
+
+            }]
+        })
+            .then(title => console.log(title))
+            .catch(console.error)
+
         try {
 
-            const title = await Titles.findAll({ include: 'platforms' });
+            const title = await Titles.findAll(
+                {
+
+                }
+
+
+
+
+            );
 
             if (title.length == 0) {
                 return res.status(404).send({
@@ -89,7 +106,7 @@ module.exports = {
 
             return res.status(200).send({
                 erro: false,
-                title
+                data: title
             });
 
         } catch (e) {
@@ -105,30 +122,30 @@ module.exports = {
 
     async store(req, res) {
 
-        const { title, description,avatar,id_platforms } = req.body;
+        const { title, description, avatar, id_platforms } = req.body;
 
         if (title && description && id_platforms) {
 
-            console.log(await Titles.findOne({ where: {  title } }))
+            console.log(await Titles.findOne({ where: { title } }))
 
-            
-  
+
+
 
             try {
 
-                if (await Titles.findOne({ where: {  title } })) {
+                if (await Titles.findOne({ where: { title } })) {
                     return res.status(400).send({
                         erro: true,
                         message: 'Type title already exists',
                     });
                 }
 
-                const titleNew = await Titles.create({ title,description,avatar:avatar?avatar:null,id_platforms });
+                const titleNew = await Titles.create({ title, description, avatar: avatar ? avatar : null, id_platforms });
 
                 return res.status(200).send({
                     erro: false,
                     message: 'Types commands created success',
-                    data:titleNew
+                    data: titleNew
                 })
 
 
@@ -152,7 +169,7 @@ module.exports = {
     async update(req, res) {
 
         const { Idplatforms } = req.params;
-        const { name,avatar } = req.body;
+        const { name, avatar } = req.body;
 
         if (Idplatforms && name) {
 
@@ -175,7 +192,7 @@ module.exports = {
                     });
                 }
 
-                await Platforms.update({ name: name, avatar:avatar? avatar: typeExist.avatar  }, {
+                await Platforms.update({ name: name, avatar: avatar ? avatar : typeExist.avatar }, {
                     where: {
                         id: Idplatforms,
                     }

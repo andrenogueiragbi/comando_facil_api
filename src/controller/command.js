@@ -1,5 +1,6 @@
 const Commands = require('../modal/Commands');
 
+
 module.exports = {
     async one(req, res) {
 
@@ -37,6 +38,8 @@ module.exports = {
     async index(req, res) {
 
         try {
+
+        
 
             const commands = await Commands.findAll();
 

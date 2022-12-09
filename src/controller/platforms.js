@@ -1,4 +1,6 @@
 const Platforms = require('../modal/Platforms');
+const Titles = require('../modal/Titles');
+
 
 module.exports = {
     async one(req, res) {
@@ -39,7 +41,7 @@ module.exports = {
 
         try {
 
-            const types = await Platforms.findAll();
+            const types = await Platforms.findAll({ });
 
             if (types.length == 0) {
                 return res.status(404).send({
@@ -57,7 +59,8 @@ module.exports = {
 
             return res.status(500).send({
                 erro: true,
-                message: 'The server failed'
+                message: 'The server failed',
+                e
             });
         }
 
