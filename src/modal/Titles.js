@@ -9,9 +9,35 @@ class titles extends Model {
             id_platforms: DataTypes.INTEGER,
         }, {sequelize})
     }
+    static associate(models) {
+        this.belongsTo(models.platforms);
+        
+        
+    }
 
 
 }
+
 module.exports = titles
 
-//id	title	description	avatar	id_platforms	created_at	updated_at
+
+
+/* 
+
+'use strict';
+
+
+module.exports = (sequelize, DataTypes) => {
+    const Titles = sequelize.define('Titles', {
+        title: DataTypes.STRING,
+        description: DataTypes.STRING,
+        avatar: DataTypes.STRING,
+        id_platforms: DataTypes.INTEGER,
+    }, {});
+    Titles.associate = function(models) {
+        Titles.belongsTo(models.Company, {foreignKey:'id_platforms', sourceKey:'id'})
+    };
+    return Titles;
+  };
+
+//id	title	description	avatar	id_platforms	created_at	updated_at */

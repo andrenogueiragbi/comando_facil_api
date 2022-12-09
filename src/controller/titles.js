@@ -1,5 +1,7 @@
 const Titles = require('../modal/Titles');
 
+
+
 module.exports = {
     async one(req, res) {
 
@@ -9,7 +11,11 @@ module.exports = {
 
         try {
 
-            const title = await Titles.findOne({ where: { id: Idtitle } })
+            const title = await Titles.findOne({ 
+                where: { id: Idtitle },   
+
+         })
+            
 
       
 
@@ -29,7 +35,8 @@ module.exports = {
 
             return res.status(500).send({
                 erro: true,
-                message: 'The server failed'
+                message: 'The server failed',
+                e
             });
         }
 
@@ -71,7 +78,7 @@ module.exports = {
 
         try {
 
-            const title = await Titles.findAll();
+            const title = await Titles.findAll({ include: 'platforms' });
 
             if (title.length == 0) {
                 return res.status(404).send({
@@ -89,7 +96,8 @@ module.exports = {
 
             return res.status(500).send({
                 erro: true,
-                message: 'The server failed'
+                message: 'The server failed',
+                e
             });
         }
 
