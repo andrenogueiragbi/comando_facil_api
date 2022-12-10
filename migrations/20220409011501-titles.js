@@ -10,12 +10,12 @@ module.exports = {
 				allowNull: false,
 			},
 			title: {
-				type: Sequelize.STRING,
+				type: Sequelize.TEXT,
 				aloowNull: false,
 
 			},
 			description: {
-				type: Sequelize.STRING,
+				type: Sequelize.TEXT,
 				aloowNull: false,
 
 			},
