@@ -8,11 +8,11 @@ class Platforms extends Model {
             description: DataTypes.STRING,
         }, { sequelize })
     }
-/*     static associate(models) {
-        this.hasMany(models.Title, {
-            foreignKey: 'id_platforms',
+    static associate(models) {
+        this.hasMany(models.Titles, {
+            as: 'titles',
         });
-    } */
+    } 
 
 
 

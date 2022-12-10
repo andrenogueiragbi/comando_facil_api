@@ -13,7 +13,7 @@ module.exports = {
 
             const platform = await Platforms.findOne({ where: { id: Idplatforms } })
 
-      
+
 
             if (!platform) {
                 return res.status(404).send({
@@ -39,9 +39,19 @@ module.exports = {
 
     async index(req, res) {
 
+        Platforms.findAll({
+            include: [{
+                model: Titles,
+
+            }]
+        })
+            .then(title => console.log(title))
+            .catch(console.error)
+
         try {
 
-            const types = await Platforms.findAll({ });
+
+            const types = await Platforms.findAll({});
 
             if (types.length == 0) {
                 return res.status(404).send({
@@ -52,7 +62,7 @@ module.exports = {
 
             return res.status(200).send({
                 erro: false,
-                data:types
+                data: types
             });
 
         } catch (e) {
@@ -82,7 +92,7 @@ module.exports = {
                     });
                 }
 
-                const typesCommandsNew = await Platforms.create({ name,avatar:avatar?avatar:null });
+                const typesCommandsNew = await Platforms.create({ name, avatar: avatar ? avatar : null });
 
                 return res.status(200).send({
                     erro: false,
@@ -111,7 +121,7 @@ module.exports = {
     async update(req, res) {
 
         const { Idplatforms } = req.params;
-        const { name,avatar } = req.body;
+        const { name, avatar } = req.body;
 
         if (Idplatforms && name) {
 
@@ -134,7 +144,7 @@ module.exports = {
                     });
                 }
 
-                await Platforms.update({ name: name, avatar:avatar? avatar: typeExist.avatar  }, {
+                await Platforms.update({ name: name, avatar: avatar ? avatar : typeExist.avatar }, {
                     where: {
                         id: Idplatforms,
                     }

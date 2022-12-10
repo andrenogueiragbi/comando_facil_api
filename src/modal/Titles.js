@@ -15,11 +15,13 @@ class Titles extends Model {
  */
 
 		})
-/* 		this.associate = (models) => {
-			Titles.hasMany(models.Platforms, {
-				foreignKey: 'id'
+ 		this.associate = (models) => {
+			Titles.belongsTo(models.Platforms, {
+				foreignKey: 'id',
+				as: 'platforms',
+
 			});
-		}; */
+		}; 
 
 
 	}
