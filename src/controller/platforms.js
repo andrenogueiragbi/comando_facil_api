@@ -1,5 +1,5 @@
 const Platforms = require('../modal/Platforms');
-const Titles = require('../modal/Titles');
+
 
 
 module.exports = {
@@ -39,14 +39,6 @@ module.exports = {
 
     async index(req, res) {
 
-        Platforms.findAll({
-            include: [{
-                model: Titles,
-
-            }]
-        })
-            .then(title => console.log(title))
-            .catch(console.error)
 
         try {
 

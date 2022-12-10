@@ -1,19 +1,30 @@
-const { Model, DataTypes } = require('sequelize');
+const { Sequelize, DataTypes } = require('sequelize');
+const connection = require('../database')
+const Titles = require('../modal/Titles');
 
 
-class commands extends Model {
-    static init(sequelize){
-        super.init({
-            description: DataTypes.TEXT,
-            commands: DataTypes.TEXT,
-            tags: DataTypes.STRING,
-            creator: DataTypes.STRING,   
-            title_id: DataTypes.INTEGER, 
-        }, {sequelize})
-    }
-        
+const Commands = connection.define('commands', {
+    description: DataTypes.TEXT,
+    commands: DataTypes.TEXT,
+    tags: DataTypes.STRING,
+    creator: DataTypes.STRING,
+    title_id: DataTypes.INTEGER,
 
-}
-module.exports = commands
+}, {
+   
+    timestamps: true,
 
-//id	description	commands	tags	creator	title_id	created_at	updated_at
+
+})
+
+
+Commands.belongsTo(Titles,{
+    constraint:true,
+    foreignKey:'title_id',
+})
+
+
+module.exports = Commands
+
+
+

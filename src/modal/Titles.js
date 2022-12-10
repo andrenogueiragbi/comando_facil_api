@@ -1,34 +1,28 @@
-const { Model, DataTypes } = require('sequelize');
-const Platforms = require('./Platforms')
 
-class Titles extends Model {
-	static init(sequelize) {
-		super.init({
-			title: DataTypes.TEXT,
-			description: DataTypes.TEXT,
-			avatar: DataTypes.STRING,
-			id_platforms: DataTypes.INTEGER,
-		}, {
-			sequelize,
-/* 			modelName: 'titles',
-			timestamps: true,
- */
-
-		})
- 		this.associate = (models) => {
-			Titles.belongsTo(models.Platforms, {
-				foreignKey: 'id',
-				as: 'platforms',
-
-			});
-		}; 
+const {Sequelize, DataTypes} = require('sequelize');
+const connection = require('../database')
+const Platforms = require('../modal/Platforms');
 
 
-	}
+const Titles = connection.define('titles',{
+	title: DataTypes.TEXT,
+	description: DataTypes.TEXT,
+	avatar: DataTypes.STRING,
+	id_platforms: DataTypes.INTEGER,
+
+},{
+   
+    timestamps: true,
 
 
-}
+})
+
+Titles.belongsTo(Platforms,{
+    constraint:true,
+    foreignKey:'id_platforms',
+})
 
 module.exports = Titles
+
 
 

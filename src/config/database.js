@@ -29,17 +29,19 @@ module.exports = {
         underscored: true,
     },
     logging: false,
-};
+}; 
 
 /* module.exports = {
     dialect: 'mysql',
-    database: process.env.DATABASE,
-    username: process.env.DB_USER,
-    password: process.env.DB_PASS,
-    host: process.env.DB_HOST,
+    database: 'comandos',
+    username: 'root',
+    password: '090909',
+    host: 'localhost',
     define: {
         timestamps: true,
         underscored: true,
     },
     logging: false,
-}; */
+}; 
+
+ */

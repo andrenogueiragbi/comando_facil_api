@@ -79,23 +79,21 @@ module.exports = {
         Titles.findAll({
             include: [{
                 model: Platforms,
-
+                attributes: ['name']
             }]
         })
             .then(title => console.log(title))
             .catch(console.error)
-
+ 
         try {
 
-            const title = await Titles.findAll(
-                {
-
-                }
-
-
-
-
-            );
+            const title = await Titles.findAll({
+                include: [{
+                    model: Platforms,
+                    attributes: ['name','avatar']
+                }]
+                
+            });
 
             if (title.length == 0) {
                 return res.status(404).send({

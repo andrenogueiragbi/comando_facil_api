@@ -72,4 +72,3 @@ routes.get('/online', (req, res) => {
 
 module.exports = routes;
 
-

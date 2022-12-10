@@ -20,7 +20,7 @@ app.use(cors());
 app.use(routes);
 
 quickStartDB.ckeckType()
-quickStartDB.ckeckUser()
+/* quickStartDB.ckeckUser() */
 
 app.listen(process.env.PORT || 5000, () =>{
     console.log("Rodando http na porta 5001 \\O/.");
