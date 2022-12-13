@@ -1,6 +1,7 @@
 const { Sequelize, DataTypes } = require('sequelize');
 const connection = require('../database')
 const Titles = require('../modal/Titles');
+const Platforms = require('../modal/Platforms')
 
 
 const Commands = connection.define('commands', {
@@ -22,6 +23,8 @@ Commands.belongsTo(Titles,{
     constraint:true,
     foreignKey:'title_id',
 })
+
+
 
 
 module.exports = Commands

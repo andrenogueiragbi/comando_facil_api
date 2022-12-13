@@ -7,8 +7,7 @@ module.exports = {
 
         const { Idtitle } = req.params;
 
-        console.log(Idtitle)
-
+        
         try {
 
             const title = await Titles.findOne({
@@ -48,7 +47,12 @@ module.exports = {
 
         try {
 
-            const title = await Titles.findAll({ where: { id_platforms: id } })
+            const title = await Titles.findAll({
+                where: { id_platforms: id, }, include: [{
+                    model: Platforms,
+                    attributes: ['name', 'avatar']
+                }]
+            })
 
 
             if (!title) {
@@ -79,21 +83,23 @@ module.exports = {
         Titles.findAll({
             include: [{
                 model: Platforms,
-                attributes: ['name']
+
             }]
         })
             .then(title => console.log(title))
             .catch(console.error)
- 
+
         try {
 
-            const title = await Titles.findAll({
-                include: [{
-                    model: Platforms,
-                    attributes: ['name','avatar']
-                }]
-                
-            });
+            const title = await Titles.findAll(
+                {
+
+                }
+
+
+
+
+            );
 
             if (title.length == 0) {
                 return res.status(404).send({
