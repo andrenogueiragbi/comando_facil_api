@@ -2,8 +2,6 @@ const express = require('express')
 const morgan = require('morgan');
 const cors = require('cors');
 const routes = require('./routes')
-const swaggerUi = require('swagger-ui-express')
-const swaggerDocument = require("./config/swagger.json")
 const quickStartDB = require('../src/controller/quickStartDB');
 
 
@@ -23,5 +21,5 @@ quickStartDB.ckeckType()
 /* quickStartDB.ckeckUser() */
 
 app.listen(process.env.PORT || 5000, () =>{
-    console.log("Rodando http na porta 5001 \\O/.");
+    console.log("Rodando http na porta 5000 \\O/.");
 })
