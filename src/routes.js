@@ -2,7 +2,6 @@ const express = require('express');
 const UserController = require('./controller/UserController');
 const authMiddleware = require('./middlewares/auth');
 const isBody = require('./controller/checkBody')
-
 const commands = require('./controller/command')
 const platforms = require('./controller/platforms')
 const titles = require('./controller/titles')
@@ -21,10 +20,7 @@ routes.delete('/platforms/:Idplatforms', platforms.delete)
 
 /*ROTA DE TITULO DE COMANDO DE PLATAFORMA*/
 routes.get('/titles', titles.index)
-
-/*TESTES */
 routes.get('/title/:Idtitle', titles.one)
-
 routes.get('/title/platform/:Idplatform', titles.platform)
 routes.post('/titles',isBody, titles.store)
 

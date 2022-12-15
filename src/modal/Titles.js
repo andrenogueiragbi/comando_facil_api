@@ -12,7 +12,7 @@ const Titles = connection.define('titles',{
 
 },{
    
-    timestamps: true,
+    timestamps: false,
 
 
 })

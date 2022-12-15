@@ -13,7 +13,7 @@ const Commands = connection.define('commands', {
 
 }, {
    
-    timestamps: true,
+    timestamps: false,
 
 
 })
@@ -23,8 +23,6 @@ Commands.belongsTo(Titles,{
     constraint:true,
     foreignKey:'title_id',
 })
-
-
 
 
 module.exports = Commands

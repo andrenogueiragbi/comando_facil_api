@@ -8,11 +8,28 @@ module.exports = {
 
         const { Idcommand: id } = req.params;
 
-        console.log(id)
+       
 
         try {
 
-            const command = await Commands.findOne({ where: { id } })
+
+/*             Commands.findAll({
+                include: [{
+                    model: Titles,
+                   
+                }]
+            })
+                .then(title => title)
+                .catch(console.error) */
+    
+            const command = await Commands.findOne({ 
+                where: { id } ,
+                include: [{
+                    model: Titles,
+                    
+                }],
+      
+            })
 
 
 
@@ -66,16 +83,6 @@ module.exports = {
     async title(req, res) {
 
         const { Idtitle: title_id } = req.params;
-
-        Commands.findAll({
-            include: [{
-                model: Titles,
-               
-            }]
-        })
-            .then(title => title)
-            .catch(console.error)
-
 
 
         try {

@@ -12,6 +12,10 @@ module.exports = {
 
             const title = await Titles.findOne({
                 where: { id: Idtitle },
+                include: [{
+                    model: Platforms,
+                    
+                }]
 
             })
 
@@ -48,7 +52,8 @@ module.exports = {
         try {
 
             const title = await Titles.findAll({
-                where: { id_platforms: id, }, include: [{
+                where: { id_platforms: id, }, 
+                include: [{
                     model: Platforms,
                     attributes: ['name', 'avatar']
                 }]
