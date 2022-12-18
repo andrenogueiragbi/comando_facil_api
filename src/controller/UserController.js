@@ -8,7 +8,7 @@ const jwt = require('jsonwebtoken');
 const authConfig = require('../config/auth.json')
 
 function generateToken(params = {}) {
-    let duratiomToken = 86400;  // 1 dia
+    let duratiomToken = 20 || 86400;  // 1 dia
     return jwt.sign(params, authConfig.secret, {
         expiresIn: duratiomToken,
     });
@@ -25,7 +25,7 @@ module.exports = {
                 const user = await User.findOne({ where: { email } });
 
                 if (!user || !bcrypt.compareSync(password, user.password)) {
-                    return res.status(401).send({
+                    return res.status(200).send({
                         erro: true,
                         message: 'unauthorized'
                     });
@@ -36,7 +36,7 @@ module.exports = {
                     erro: false,
                     message: "User logged",
                     user,
-                    token: generateToken({ id: user.id })
+                    token: generateToken({ id: user.id,name:user.name,email:user.email })
                 });
 
 
@@ -118,6 +118,10 @@ module.exports = {
         const { name, email, password, level, company } = req.body;
 
         if (name && email && password && level && company) {
+            
+
+
+
             try {
 
                 if (await User.findOne({ where: { email: email } })) {
@@ -142,7 +146,8 @@ module.exports = {
             } catch (e) {
                 return res.status(500).send({
                     erro: true,
-                    message: 'The server failed'
+                    message: 'The server failed',
+                    e
                 });
             }
 
