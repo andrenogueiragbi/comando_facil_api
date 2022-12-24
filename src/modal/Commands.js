@@ -13,7 +13,7 @@ const Commands = connection.define('commands', {
 
 }, {
    
-    timestamps: false,
+    timestamps: true,
 
 
 })

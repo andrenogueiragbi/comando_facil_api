@@ -70,26 +70,29 @@ module.exports = {
 
     async store(req, res) {
 
+        const { name, avatar,description } = req.body;
 
-        const { name, avatar } = req.body;
+        console.log(name,avatar)
 
-        if (name) {
+
+
+        if (name,description) {
 
             try {
 
                 if (await Platforms.findOne({ where: { name: name } })) {
-                    return res.status(400).send({
+                    return res.status(200).send({
                         erro: true,
                         message: 'Types commands already exists',
                     });
                 }
 
-                const typesCommandsNew = await Platforms.create({ name, avatar: avatar ? avatar : null });
+                const data = await Platforms.create({ name,description, avatar: avatar ? avatar : null });
 
                 return res.status(200).send({
                     erro: false,
                     message: 'Types commands created success',
-                    data: typesCommandsNew
+                    data
                 })
 
 
@@ -104,7 +107,7 @@ module.exports = {
 
             return res.status(400).send({
                 erro: true,
-                message: "name is requeried",
+                message: "name and description is requeried",
             })
 
         }
@@ -121,7 +124,7 @@ module.exports = {
                 const typeExist = await Platforms.findByPk(Idplatforms);
 
                 if (!typeExist) {
-                    return res.status(404).send({
+                    return res.status(200).send({
                         erro: true,
                         message: 'Types commands not found for update'
                     });
@@ -129,7 +132,7 @@ module.exports = {
                 }
 
                 if (await Platforms.findOne({ where: { name: name } })) {
-                    return res.status(400).send({
+                    return res.status(200).send({
                         erro: true,
                         message: 'Types commands already exists',
 

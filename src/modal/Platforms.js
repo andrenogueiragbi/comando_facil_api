@@ -8,7 +8,7 @@ const Platforms = connection.define('platform',{
     description: DataTypes.STRING,
 
 },{
-    timestamps: false,
+    timestamps: true,
 })
 
 module.exports = Platforms

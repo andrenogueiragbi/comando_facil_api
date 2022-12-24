@@ -8,7 +8,7 @@ const jwt = require('jsonwebtoken');
 const authConfig = require('../config/auth.json')
 
 function generateToken(params = {}) {
-    let duratiomToken = 20 || 86400;  // 1 dia
+    let duratiomToken = 86400;  // 1 dia
     return jwt.sign(params, authConfig.secret, {
         expiresIn: duratiomToken,
     });
