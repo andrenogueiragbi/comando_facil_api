@@ -55,7 +55,7 @@ module.exports = {
                 where: { id_platforms: id, }, 
                 include: [{
                     model: Platforms,
-                    attributes: ['name', 'avatar']
+                    attributes: ['name', 'avatar','description']
                 }]
             })
 
@@ -135,15 +135,10 @@ module.exports = {
 
         if (title && description && id_platforms) {
 
-            console.log(await Titles.findOne({ where: { title } }))
-
-
-
-
             try {
 
                 if (await Titles.findOne({ where: { title } })) {
-                    return res.status(400).send({
+                    return res.status(200).send({
                         erro: true,
                         message: 'Type title already exists',
                     });

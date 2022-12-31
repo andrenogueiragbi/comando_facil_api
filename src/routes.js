@@ -13,7 +13,7 @@ const routes = express.Router();
 /*ROTA DE TIPO PLATAFORMA DA API*/
 routes.get('/platform/:Idplatforms', platforms.one)
 routes.get('/platforms', platforms.index)
-routes.post('/platforms',isBody, platforms.store)
+routes.post('/platforms',authMiddleware,isBody, platforms.store)
 routes.put('/platforms/:Idplatforms',isBody, platforms.update)
 routes.delete('/platforms/:Idplatforms', platforms.delete)
 
@@ -22,7 +22,7 @@ routes.delete('/platforms/:Idplatforms', platforms.delete)
 routes.get('/titles', titles.index)
 routes.get('/title/:Idtitle', titles.one)
 routes.get('/title/platform/:Idplatform', titles.platform)
-routes.post('/titles',isBody, titles.store)
+routes.post('/titles',authMiddleware,isBody, titles.store)
 
 
 /*ROTA DE COMANDO DA API*/
